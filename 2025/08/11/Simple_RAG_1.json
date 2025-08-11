@@ -1,0 +1,333 @@
+{
+  "active": false,
+  "connections": {
+    "Google Drive": {
+      "main": [
+        [
+          {
+            "node": "Pinecone Vector Store",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Pinecone Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Pinecone Vector Store",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Recursive Character Text Splitter": {
+      "ai_textSplitter": [
+        [
+          {
+            "node": "Default Data Loader",
+            "type": "ai_textSplitter",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Drive Trigger": {
+      "main": [
+        [
+          {
+            "node": "Google Drive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-04T10:06:44.931Z",
+  "id": "bZXzvNZChXDjKc5g",
+  "isArchived": false,
+  "meta": null,
+  "name": "Simple RAG 1",
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        368,
+        0
+      ],
+      "id": "619e8f71-fbaf-4a46-89f4-baef9a84c2d1",
+      "name": "Google Drive"
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "n8n",
+          "mode": "list",
+          "cachedResultName": "n8n"
+        },
+        "options": {
+          "pineconeNamespace": "Test"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1,
+      "position": [
+        672,
+        0
+      ],
+      "id": "834c5e89-a2b9-456b-ae01-448164c16394",
+      "name": "Pinecone Vector Store"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        544,
+        224
+      ],
+      "id": "1b8b5ab0-a7b7-4f00-8e06-2dcc9e0fed37",
+      "name": "Embeddings OpenAI"
+    },
+    {
+      "parameters": {
+        "dataType": "binary",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1,
+      "position": [
+        800,
+        224
+      ],
+      "id": "63f2a631-e25b-48aa-a8cd-c75c2900c719",
+      "name": "Default Data Loader"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
+      "typeVersion": 1,
+      "position": [
+        912,
+        448
+      ],
+      "id": "ac525cf4-9ee4-4a75-993a-c8b87dae58c5",
+      "name": "Recursive Character Text Splitter"
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "custom",
+              "cronExpression": "*/30 * * * *"
+            }
+          ]
+        },
+        "triggerOn": "specificFolder",
+        "folderToWatch": {
+          "__rl": true,
+          "value": "12dVXMe-em5GnCBmOzP1w8ENx6TaCpWNo",
+          "mode": "list",
+          "cachedResultName": "Test Folder",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/12dVXMe-em5GnCBmOzP1w8ENx6TaCpWNo"
+        },
+        "event": "fileCreated",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDriveTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "1c168062-1598-4f0e-83f6-9ad59a7a198c",
+      "name": "Google Drive Trigger"
+    },
+    {
+      "parameters": {
+        "content": "## https://youtu.be/KC34sUqgU5A?si=2zK7XI9QcuxjtoDp\n",
+        "width": 688
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -320,
+        272
+      ],
+      "typeVersion": 1,
+      "id": "93ed9d94-77fc-41ae-a9fb-f8ef824a0ab2",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {
+    "Google Drive Trigger": [
+      {
+        "json": {
+          "kind": "drive#file",
+          "fileExtension": "pdf",
+          "copyRequiresWriterPermission": false,
+          "md5Checksum": "49fba05ec710b430c56e216e2e9e57d9",
+          "writersCanShare": true,
+          "viewedByMe": true,
+          "mimeType": "application/pdf",
+          "parents": [
+            "12dVXMe-em5GnCBmOzP1w8ENx6TaCpWNo"
+          ],
+          "iconLink": "https://drive-thirdparty.googleusercontent.com/16/type/application/pdf",
+          "shared": true,
+          "lastModifyingUser": {
+            "displayName": "Jono Catliff",
+            "kind": "drive#user",
+            "me": true,
+            "permissionId": "02256737817753985539",
+            "emailAddress": "jonocatliff@gmail.com",
+            "photoLink": "https://lh3.googleusercontent.com/a/ACg8ocKXEbY3abGXVtxb0ZA6zde1PTbCqbRuxYtA_JK7OUpOma1L3WBT=s64"
+          },
+          "owners": [
+            {
+              "displayName": "Jono Catliff",
+              "kind": "drive#user",
+              "me": true,
+              "permissionId": "02256737817753985539",
+              "emailAddress": "jonocatliff@gmail.com",
+              "photoLink": "https://lh3.googleusercontent.com/a/ACg8ocKXEbY3abGXVtxb0ZA6zde1PTbCqbRuxYtA_JK7OUpOma1L3WBT=s64"
+            }
+          ],
+          "headRevisionId": "0B2FfE4jRlum6SExONWYxeTlYOUM2czV3dWVYOXlGSG55TEN3PQ",
+          "webViewLink": "https://drive.google.com/file/d/1riIMQ3mPxKupI_1nsKoJvChU6huu4o2l/view?usp=drivesdk",
+          "webContentLink": "https://drive.google.com/uc?id=1riIMQ3mPxKupI_1nsKoJvChU6huu4o2l&export=download",
+          "size": "8197597",
+          "viewersCanCopyContent": true,
+          "permissions": [
+            {
+              "id": "anyoneWithLink",
+              "type": "anyone",
+              "kind": "drive#permission",
+              "role": "reader",
+              "allowFileDiscovery": false
+            },
+            {
+              "id": "02256737817753985539",
+              "displayName": "Jono Catliff",
+              "type": "user",
+              "kind": "drive#permission",
+              "photoLink": "https://lh3.googleusercontent.com/a/ACg8ocKXEbY3abGXVtxb0ZA6zde1PTbCqbRuxYtA_JK7OUpOma1L3WBT=s64",
+              "emailAddress": "jonocatliff@gmail.com",
+              "role": "owner",
+              "deleted": false,
+              "pendingOwner": false
+            }
+          ],
+          "hasThumbnail": false,
+          "spaces": [
+            "drive"
+          ],
+          "id": "1riIMQ3mPxKupI_1nsKoJvChU6huu4o2l",
+          "name": "Jono Catliff Agreement _ DJing.ca _ Invoice #7517-D _ jccatliff+6@gmail.com - yHhSe7USah7DG3Msfd9KAk.pdf",
+          "starred": false,
+          "trashed": false,
+          "explicitlyTrashed": false,
+          "createdTime": "2025-02-11T14:32:25.867Z",
+          "modifiedTime": "2025-02-11T14:32:15.000Z",
+          "modifiedByMeTime": "2025-02-11T14:32:15.000Z",
+          "viewedByMeTime": "2025-02-11T14:32:25.867Z",
+          "quotaBytesUsed": "8197597",
+          "version": "1",
+          "originalFilename": "Jono Catliff Agreement _ DJing.ca _ Invoice #7517-D _ jccatliff+6@gmail.com - yHhSe7USah7DG3Msfd9KAk.pdf",
+          "ownedByMe": true,
+          "fullFileExtension": "pdf",
+          "isAppAuthorized": false,
+          "capabilities": {
+            "canChangeViewersCanCopyContent": true,
+            "canEdit": true,
+            "canCopy": true,
+            "canComment": true,
+            "canAddChildren": false,
+            "canDelete": true,
+            "canDownload": true,
+            "canListChildren": false,
+            "canRemoveChildren": false,
+            "canRename": true,
+            "canTrash": true,
+            "canReadRevisions": true,
+            "canChangeCopyRequiresWriterPermission": true,
+            "canMoveItemIntoTeamDrive": true,
+            "canUntrash": true,
+            "canModifyContent": true,
+            "canMoveItemOutOfDrive": true,
+            "canAddMyDriveParent": false,
+            "canRemoveMyDriveParent": true,
+            "canMoveItemWithinDrive": true,
+            "canShare": true,
+            "canMoveChildrenWithinDrive": false,
+            "canModifyContentRestriction": true,
+            "canChangeSecurityUpdateEnabled": false,
+            "canAcceptOwnership": false,
+            "canReadLabels": false,
+            "canModifyLabels": false,
+            "canModifyEditorContentRestriction": true,
+            "canModifyOwnerContentRestriction": true,
+            "canRemoveContentRestriction": false
+          },
+          "thumbnailVersion": "0",
+          "modifiedByMe": true,
+          "permissionIds": [
+            "anyoneWithLink",
+            "02256737817753985539"
+          ],
+          "linkShareMetadata": {
+            "securityUpdateEligible": false,
+            "securityUpdateEnabled": true
+          },
+          "sha1Checksum": "c114d06f7b3e810b0f30209f931462f6950ca427",
+          "sha256Checksum": "70cb468ed0490ac1cf0d7e00368f416c56b4f1835ebba0f4640b3f342ad53152"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-08-04T10:07:11.193Z",
+      "updatedAt": "2025-08-04T10:07:11.193Z",
+      "id": "DdJ1H3X2PXKvluJ0",
+      "name": "RAG"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-04T10:10:45.784Z",
+  "versionId": "dfb8bbc5-d2a5-4e49-a1df-d82543044ebe"
+}
