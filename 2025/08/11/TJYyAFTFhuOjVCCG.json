@@ -1,0 +1,277 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Generate speech from text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate speech from text": {
+      "main": [
+        [
+          {
+            "node": "YouTube Transcript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "YouTube Transcript": {
+      "main": [
+        [
+          {
+            "node": "Run an Actor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run an Actor": {
+      "main": [
+        [
+          {
+            "node": "Global Constants",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Global Constants": {
+      "main": [
+        [
+          {
+            "node": "TextManipulation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "TextManipulation": {
+      "main": [
+        [
+          {
+            "node": "Puppeteer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-30T09:36:46.168Z",
+  "id": "TJYyAFTFhuOjVCCG",
+  "isArchived": false,
+  "meta": null,
+  "name": "NEW NODES",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -256,
+        0
+      ],
+      "id": "167d0d45-5d81-44c1-9ff7-2daf63f87780",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "voice_id": {
+          "__rl": true,
+          "mode": "list",
+          "value": null
+        },
+        "additionalFields": {},
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-elevenlabs.elevenLabs",
+      "typeVersion": 1,
+      "position": [
+        -16,
+        0
+      ],
+      "id": "8aec2393-a5f3-49f0-a00e-c9a1f1210de0",
+      "name": "Generate speech from text"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-youtube-transcription-kasha.youtubeTranscripter",
+      "typeVersion": 1,
+      "position": [
+        256,
+        0
+      ],
+      "id": "2a86aa15-1e3b-4e21-a65e-0a394f2e5c5a",
+      "name": "YouTube Transcript"
+    },
+    {
+      "parameters": {
+        "actorId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        512,
+        0
+      ],
+      "id": "07430ffc-505c-4262-8561-6472b7b505a6",
+      "name": "Run an Actor",
+      "credentials": {
+        "apifyApi": {
+          "id": "ZFksTmrVffxrXuUf",
+          "name": "Apify account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-globals.globalConstants",
+      "typeVersion": 1,
+      "position": [
+        800,
+        0
+      ],
+      "id": "208b98c0-3d8d-44e8-a4d1-ae9d2a1cf289",
+      "name": "Global Constants"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-text-manipulation.textManipulation",
+      "typeVersion": 1,
+      "position": [
+        1088,
+        0
+      ],
+      "id": "b912e356-a428-496a-83ad-3b920ad22c2e",
+      "name": "TextManipulation"
+    },
+    {
+      "parameters": {
+        "content": "## BEST AI VOICE from ElevenLabs\n",
+        "height": 320,
+        "width": 230
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -80,
+        -128
+      ],
+      "typeVersion": 1,
+      "id": "3690d514-b2d5-462d-9200-c9e7f12f28a2",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## GET YOUTUBE VIDEO TRANSCRIPTS",
+        "height": 336,
+        "width": 208
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        192,
+        -144
+      ],
+      "typeVersion": 1,
+      "id": "199654db-046d-48f5-af51-43e654ff9889",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "## SCRAPE MOST WEBSITES",
+        "height": 288,
+        "width": 198
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        464,
+        -96
+      ],
+      "typeVersion": 1,
+      "id": "68218fbc-b757-4856-b19e-a52d8d574764",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "## CREATE GLOBAL CONSTANTS TO BE USED ACROSS WORKFLOWS",
+        "height": 416,
+        "width": 262
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        704,
+        -208
+      ],
+      "typeVersion": 1,
+      "id": "d43373e3-da12-4715-8880-20a29d4eb948",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "## MANIPULATE TEXT IN MANY WAYS",
+        "height": 352,
+        "width": 256
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1008,
+        -160
+      ],
+      "typeVersion": 1,
+      "id": "bcf61c88-ecbd-414a-b40c-0515935a4379",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "globalOptions": {},
+        "nodeOptions": {}
+      },
+      "type": "n8n-nodes-puppeteer-extended.puppeteer",
+      "typeVersion": 1,
+      "position": [
+        1424,
+        0
+      ],
+      "id": "2a782a72-b6ef-4745-91d7-11730b9ac961",
+      "name": "Puppeteer"
+    },
+    {
+      "parameters": {
+        "content": "## simulate manual browsing of the browser. this is a node.js library  which we would need to install locally",
+        "height": 384,
+        "width": 336
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1312,
+        -176
+      ],
+      "typeVersion": 1,
+      "id": "8c16b62c-bb97-4cf7-88d1-133df1e93d20",
+      "name": "Sticky Note5"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-07-30T11:07:07.503Z",
+  "versionId": "dd760575-99ba-478f-868e-7bbac68c5a96"
+}
