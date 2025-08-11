@@ -1,0 +1,19 @@
+{
+  "active": false,
+  "connections": {},
+  "createdAt": "2025-07-30T18:31:45.413Z",
+  "id": "dv6qoyTIeGr1pGIu",
+  "isArchived": true,
+  "meta": null,
+  "name": "Nautic test",
+  "nodes": [],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-04T09:37:35.293Z",
+  "versionId": "03534900-86a1-4558-ba51-73270f2143dc"
+}
