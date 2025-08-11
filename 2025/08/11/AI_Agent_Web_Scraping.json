@@ -1,0 +1,396 @@
+{
+  "active": false,
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Window Buffer Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Maps Web Scraper": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Apollo": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Instagram": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "TikTok": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-04T09:54:39.742Z",
+  "id": "elAFaz1HMzfoJw8R",
+  "isArchived": false,
+  "meta": null,
+  "name": "AI_Agent_Web_Scraping",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "dd03a6e1-8541-480e-b71e-a843b5a8f24a",
+      "name": "When chat message received",
+      "webhookId": "b647c2f1-e3e9-4be0-965b-85826071d7a8"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "=# Overview\nYou are the personal assistant that excels at web scraping. Your job is to send the user's query to the correct tool. You should never be writing emails, or creating even summaries, you just need to call the correct tool.\n\n## Tools\n- google_maps_web_scraper: Use this tool to web scrape google. You'll want to aggregate all the results together and send a list back to the user\n- apollo_web_scraper: Use this tool to web apollo. You'll want to aggregate all the results together and send a list back to the user\n- instagram_web_scraper: Use this tool to web scrape instagram. You'll want to aggregate all the results together and send a list back to the user\n- tiktok_web_scraper: Use this tool to web scrape tiktok. You'll want to aggregate all the results together and send a list back to the user\n\nIf the user asks you to scrape multiple sources, please combine them all in one output.\n\n## Workflow inputs\n- search: please insert the city. For example: Toronto, or Los Angeles\n- location: please insert the city. For example: Toronto, or Los Angeles\n- state: please insert the state/province code uppercase. For example: NY, CA\n- country: please insert the country code, lower case. For example: ca, or us"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        224,
+        0
+      ],
+      "id": "1f86f015-c6c8-4c03-8686-82885868e0e1",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        64,
+        224
+      ],
+      "id": "1cb0a4de-fa1a-4457-946a-6affb2481b1c",
+      "name": "OpenAI Chat Model"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        192,
+        224
+      ],
+      "id": "66d3a8df-95b6-4cb9-88e9-4ad79aa1bee8",
+      "name": "Window Buffer Memory"
+    },
+    {
+      "parameters": {
+        "name": "google_maps_web_scraper",
+        "description": "Call this tool to web scrape Google",
+        "workflowId": {
+          "__rl": true,
+          "value": "12AKoHjuuvaPIHb6",
+          "mode": "list",
+          "cachedResultName": "Google Maps Scraping"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "country": "={{ $fromAI(\"countryCodeLowerCase\", \"this is the country code that you'll use to search Google Maps with, such asus, ca, etc - it must be lower case\") }}",
+            "state": "={{ $fromAI(\"stateInitials\", \"this is the intials of the state that you'll use to search Google Maps with, such as NY, CA, etc - uppercase\") }}",
+            "location": "={{ $fromAI(\"city\", \"this is the city that you'll use to search Google Maps with, such as New York, Los Angeles, etc\") }}",
+            "search": "={{ $fromAI(\"industry\", \"this is the industry that you'll use to search Google Maps with, such as landscaping, roofing, photography, etc\") }}"
+          },
+          "matchingColumns": [
+            "Test"
+          ],
+          "schema": [
+            {
+              "id": "search",
+              "displayName": "search",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "location",
+              "displayName": "location",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "state",
+              "displayName": "state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "country",
+              "displayName": "country",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        336,
+        224
+      ],
+      "id": "0d8c9606-6792-4f88-a7ed-5e3c671c0f39",
+      "name": "Google Maps Web Scraper"
+    },
+    {
+      "parameters": {
+        "name": "apollo_web_scraper",
+        "description": "Call this tool to web scrape Apollo",
+        "workflowId": {
+          "__rl": true,
+          "value": "vg7ioHzFge25fuAy",
+          "mode": "list",
+          "cachedResultName": "Apollo Scraping"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "search": "={{ $fromAI(\"industry\", \"this is the industry that you'll use to search Apollo with, such as landscaping, roofing, photography, etc\") }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "search",
+              "displayName": "search",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "location",
+              "displayName": "location",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        464,
+        224
+      ],
+      "id": "a3768da2-5efb-4c03-af7f-96efb8c09d99",
+      "name": "Apollo"
+    },
+    {
+      "parameters": {
+        "name": "instagram_web_scraper",
+        "description": "Call this tool to web scrape Instagram",
+        "workflowId": {
+          "__rl": true,
+          "value": "P3jGQDAnGLyToTCP",
+          "mode": "list",
+          "cachedResultName": "Instagram Scraping"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "hashtag": "={{ $fromAI(\"industry\", \"this is the industry that you'll use to search Instagram with, such as landscaping, roofing, photography, etc\") }}"
+          },
+          "matchingColumns": [
+            "hashtag"
+          ],
+          "schema": [
+            {
+              "id": "hashtag",
+              "displayName": "hashtag",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        624,
+        224
+      ],
+      "id": "2e8fee52-710a-4959-97f6-e9cd63fee8ee",
+      "name": "Instagram"
+    },
+    {
+      "parameters": {
+        "name": "tiktok_web_scraper",
+        "description": "Call this tool to web scrape TikTok",
+        "workflowId": {
+          "__rl": true,
+          "value": "XAoVK11JodOJWYqV",
+          "mode": "list",
+          "cachedResultName": "TikTok Scraping"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "hashtag": "={{ $fromAI(\"industry\", \"this is the industry that you'll use to search TikTok with, such as landscaping, roofing, photography, etc\") }}"
+          },
+          "matchingColumns": [
+            "hashtag"
+          ],
+          "schema": [
+            {
+              "id": "hashtag",
+              "displayName": "hashtag",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        752,
+        224
+      ],
+      "id": "36a4929e-dbf2-47c6-ae71-76d3ce03bc16",
+      "name": "TikTok"
+    },
+    {
+      "parameters": {
+        "content": "## AI AGENT FOR WEB SCRAPING LEADS FROM DIFFERENT SOURCES\n\nhttps://youtu.be/VAaFsqu5NE8?si=-YMU5m814tnnpZqy",
+        "width": 448
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        640,
+        -144
+      ],
+      "typeVersion": 1,
+      "id": "e0a08e71-8d33-4f3e-8d21-eb232a01a44a",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-08-04T09:57:32.468Z",
+      "updatedAt": "2025-08-04T09:57:32.468Z",
+      "id": "ZHnta6AmxsVt0CrH",
+      "name": "AI_AGENT"
+    },
+    {
+      "createdAt": "2025-08-04T09:57:46.874Z",
+      "updatedAt": "2025-08-04T09:57:46.874Z",
+      "id": "8xr8N0ZCMPDfckkJ",
+      "name": "Web_Scraping"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-04T10:05:46.548Z",
+  "versionId": "9e5ace47-556d-4ac1-bb5b-d47157febc67"
+}
